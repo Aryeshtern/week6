@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import {errorHandler} from './middelware/errorMiddleware'
 import User from './models/User'
 import userRouter from './routers/userRouter'
+import {authenticateToken} from './middelware/authMiddleware';
 
 const app = express();
 
