@@ -2,7 +2,7 @@
   "name": "week6",
   "version": "1.0.0",
   "scripts": {
-    "start": "nodemon --watch **/*.ts --exec ts-node day1_day2/basic_project/src/app.ts"
+    "start": "nodemon --watch **/*.ts --exec ts-node day3/employees/src/server.ts"
   },
   "keywords": [],
   "author": "",
