@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema} from "mongoose";
 import bcrypt from "bcrypt";
 import { IDepartment } from "./Department";
+
 export interface IUser extends Document {
     userName: string,
     password: string,
@@ -68,5 +69,7 @@ UserSchema.pre<IUser>('save', async function(next) {
 UserSchema.methods.comparePassword = async function(userPassword: string): Promise<boolean> {
     return await bcrypt.compare(userPassword, this.password);
 }
+
+UserSchema.index({role:1})
 
 export default mongoose.model<IUser>("User", UserSchema);
