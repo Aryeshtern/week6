@@ -6,14 +6,13 @@ export interface authRequest extends Request {
 }
 
 export const authenticateToken = async (req: authRequest, res: Response, next: NextFunction): Promise<void> => {
-    const authHeader = req.headers['authorization'];
-    if(!authHeader){
+    const token = req.cookies.token
+    if(!token) {
         res.status(401).json({ message: 'No token provided.' });
         return;
     }
     try{
-        const token = authHeader.split(' ')[1];
-        jwt.verify(token, process.env.JWT_SECRET as string, (err, decoded:any) => {
+        jwt.verify(token, process.env.JWT_SECRET as string, (err:any, decoded:any) => {
             req.user = decoded;
         });
         next();

@@ -50,7 +50,7 @@ export const getUserStatistics = async () => {
     const startOfTheDay = new Date(
         now.getFullYear(),
         now.getMonth(),
-        now.getDate(), // נותן את היום
+        now.getDay(),
         0,
         0,
         0
@@ -58,7 +58,7 @@ export const getUserStatistics = async () => {
     const nineAM = new Date(
         now.getFullYear(),
         now.getMonth(),
-        now.getDate(), // נותן את היום
+        now.getDay(), 
         9,
         0,
         0

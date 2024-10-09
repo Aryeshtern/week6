@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import  {getOneUserById, getUsers} from '../controllers/usercontroller'
+import  {getOneUserById, getUsers} from '../controllers/userController'
 import { checkTokenIfAdmin, authenticateToken} from '../middelware/authMiddleware'
 const router = Router();
 

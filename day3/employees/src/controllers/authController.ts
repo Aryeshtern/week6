@@ -26,6 +26,7 @@ export const login = async (req: Request, res: Response) : Promise<void>=> {
         const token = generateToken(user._id as string, user.role);
         user.lastLogin = new Date();
         await user.save();
+        res.cookie('token',token, { httpOnly: true, secure: true, maxAge: 3600000 })
         res.json({ message: 'Logged in successfully', token });
     }catch{
         res.status(500).json({ message: 'Server error' });
