@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import User, { IUser } from "../models/User";
 
 
@@ -12,11 +13,11 @@ export const createUser = async (userData: Partial<IUser>, departmentId: string)
 
 // לקבל משתמש לפי ID
 export const getUserById = async (id: string): Promise<IUser | null> => {
-    return await User.findById(id).select("-password").populate("department")
+    return User.findById(id).select("-password")
 };
 
 export const getAllUsers = async (): Promise<IUser[]> => {
-    return await User.find().select("-password").populate("department")
+    return await User.find().select("-password")
 }
 
 export const updateUser = async (id: string, updateData: Partial<IUser>): Promise<IUser | null> => {
@@ -28,7 +29,7 @@ export const deleteUser = async (id: string): Promise<IUser | null> => {
 }
 
 // לקבל משתמשים לפי התפקיד שלהם
-export const getUserByRole = async (role: "employee" | "manager"): Promise<IUser[]> => {
+export const getUserByRole = async (role: "Employee" | "Administrator"): Promise<IUser[]> => {
     return await User.find({ role }).select("-password");
 };
 

@@ -2,7 +2,7 @@ import { Response, Request, NextFunction } from "express";
 import jwt from 'jsonwebtoken';
 
 export interface authRequest extends Request {
-    user?: { userId: string, role: 'Employee' | 'Administrator'};
+    user?: { userId: string, userRole: 'Employee' | 'Administrator'};
 }
 
 export const authenticateToken = async (req: authRequest, res: Response, next: NextFunction): Promise<void> => {
@@ -13,14 +13,21 @@ export const authenticateToken = async (req: authRequest, res: Response, next: N
     }
     try{
         const token = authHeader.split(' ')[1];
-        jwt.verify(token, process.env.JWT_SECRET as string, (decoded: any) => {
-        req.user = decoded;
-        next();
+        jwt.verify(token, process.env.JWT_SECRET as string, (err, decoded:any) => {
+            req.user = decoded;
         });
+        next();
     }catch{
         res.status(403).json({ message: 'Invalid token.' });
         return;
     }
         
-    
 };
+
+export const checkTokenIfAdmin = async (req: authRequest, res: Response, next: NextFunction) : Promise<void>=> {
+    if(!req.user || req.user.userRole !== 'Administrator'){
+        res.status(403).json({ message: 'Unauthorized access.' });
+        return;
+    }
+    next();
+}
